@@ -1,4 +1,4 @@
-# Golang SDK for Openblock OpenAPI
+# Golang SDK for Benpay merchant
 
 # API Documentation
 - [Official documentation](https://docs.benpay.org/zh-Hans/BenPay/Doc/api_doc/)
