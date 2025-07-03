@@ -11,10 +11,10 @@ import (
 func TestCreatePayment(t *testing.T) {
 	cli := client.NewClient(ApiKey, MerchantPrivateKey, PlatformPublicKey)
 	resp, err := cli.CreatePayment(&client.CreatePaymentRequest{
-		OutTradeNo:   time.Now().Format("20060102150405"),
-		Coin:         "BUSD",
-		CoinAmount:   "0.05",
-		MerchantNote: "merchant note",
+		MerchantOrderNo: time.Now().Format("20060102150405"),
+		Coin:            "BUSD",
+		Amount:          "0.05",
+		MerchantNote:    "merchant note",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -25,7 +25,7 @@ func TestCreatePayment(t *testing.T) {
 func TestGetPaymentInfo(t *testing.T) {
 	cli := client.NewClient(ApiKey, MerchantPrivateKey, PlatformPublicKey)
 	resp, err := cli.GetPaymentInfo(&client.GetPaymentInfoRequest{
-		PaymentId: "eb7dbae231fd492e8928d6423777125b",
+		PaymentID: "1f7d8a94b3714e4ba371db5316871bbb",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -36,7 +36,7 @@ func TestGetPaymentInfo(t *testing.T) {
 func TestGetPaymentList(t *testing.T) {
 	cli := client.NewClient(ApiKey, MerchantPrivateKey, PlatformPublicKey)
 	resp, err := cli.GetPaymentList(&client.GetPaymentListRequest{
-		PaymentId: "eb7dbae231fd492e8928d6423777125b",
+		PaymentID: "1f7d8a94b3714e4ba371db5316871bbb",
 	})
 	if err != nil {
 		t.Fatal(err)
