@@ -38,7 +38,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	if notification.NotifyType == "PAY" {
+	if notification.NotifyType == "pay" {
 		var payNotifyData client.PayNotifyData
 		err = json.Unmarshal(notification.NotifyData, &payNotifyData)
 		if err != nil {

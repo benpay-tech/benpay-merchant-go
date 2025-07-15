@@ -27,28 +27,29 @@ type GetPaymentInfoRequest struct {
 	PaymentID string `json:"payment_id"`
 }
 
-type PaymentInfoData struct {
-	PaymentID                 string `json:"payment_id"`
-	MerchantOrderNo           string `json:"merchant_order_no"`
-	Coin                      string `json:"coin"`
-	Amount                    string `json:"amount"`
-	Status                    string `json:"status"`
-	TransactionHash           string `json:"transaction_hash"`
-	RefundTransactionHash     string `json:"refund_transaction_hash"`
-	SettlementTransactionHash string `json:"settlement_transaction_hash"`
-	CrossTransactionHash      string `json:"cross_transaction_hash"`
-	AccountPeriodTime         string `json:"account_period_time"`
-	CreatedAt                 string `json:"created_at"`
-	ArbitraeTransactionHash   string `json:"arbitrae_transaction_hash"`
-	FreezeTransactionHash     string `json:"freeze_transaction_hash"`
-	TimeoutTransactionHash    string `json:"timeout_transaction_hash"`
-	SettlementAmount          string `json:"settlement_amount"`
-	MerchantNote              string `json:"merchant_note"`
+type Payment struct {
+	PaymentID       string `json:"payment_id"`
+	MerchantOrderNo string `json:"merchant_order_no"`
+	Coin            string `json:"coin"`
+	Amount          string `json:"amount"`
+	Status          string `json:"status"`
+	CreatedAt       string `json:"created_at"`
+	MerchantNote    string `json:"merchant_note"`
+	PayAt           string `json:"pay_at"`
+	SettleAt        string `json:"settle_at"`
+	SettleAmount    string `json:"settle_amount"`
+	SettleTxHash    string `json:"settle_tx_hash"`
+	RefundAmount    string `json:"refund_amount"`
+	RefundAt        string `json:"refund_at"`
+	RefundTxHash    string `json:"refund_tx_hash"`
+	RefundAddress   string `json:"refund_address"`
+	BillDueTo       string `json:"bill_due_to"`
+	ExpireAt        string `json:"expire_at"`
 }
 
 type GetPaymentInfoReply struct {
 	CommonReply
-	Data *PaymentInfoData `json:"data"`
+	Data *Payment `json:"data"`
 }
 
 type GetPaymentListRequest struct {
@@ -57,31 +58,12 @@ type GetPaymentListRequest struct {
 	CreatedAtBegin  int64  `json:"created_at_begin"`
 	CreatedAtEnd    int64  `json:"created_at_end"`
 	PaymentID       string `json:"payment_id"`
-	MerchantOrderNo string `json:"out_trade_no"`
-}
-
-type PaymentItem struct {
-	PaymentID                 string `json:"payment_id"`
-	MerchantOrderNo           string `json:"out_trade_no"`
-	Coin                      string `json:"coin"`
-	CoinAmount                string `json:"coin_amount"`
-	Status                    string `json:"status"`
-	TransactionHash           string `json:"transaction_hash"`
-	RefundTransactionHash     string `json:"refund_transaction_hash"`
-	SettlementTransactionHash string `json:"settlement_transaction_hash"`
-	CrossTransactionHash      string `json:"cross_transaction_hash"`
-	AccountPeriodTime         string `json:"account_period_time"`
-	CreatedAt                 string `json:"created_at"`
-	ArbitraeTransactionHash   string `json:"arbitrae_transaction_hash"`
-	FreezeTransactionHash     string `json:"freeze_transaction_hash"`
-	TimeoutTransactionHash    string `json:"timeout_transaction_hash"`
-	SettlementAmount          string `json:"settlement_amount"`
-	MerchantNote              string `json:"merchant_note"`
+	MerchantOrderNo string `json:"merchant_order_no"`
 }
 
 type PaymentListData struct {
-	Payments []*PaymentItem `json:"payments"`
-	Total    string         `json:"total"`
+	Payments []*Payment `json:"list"`
+	Total    string     `json:"total"`
 }
 
 type GetPaymentListReply struct {
@@ -90,9 +72,9 @@ type GetPaymentListReply struct {
 }
 
 type Notification struct {
-	NotifyID   string          `json:"notify_id"`
-	NotifyType string          `json:"notify_type"`
-	NotifyData json.RawMessage `json:"notify_data"`
+	NotifyID   string          `json:"id"`
+	NotifyType string          `json:"type"`
+	NotifyData json.RawMessage `json:"data"`
 }
 
 type NotifyBaseData struct {
@@ -101,31 +83,27 @@ type NotifyBaseData struct {
 	MerchantID      string `json:"mechant_id"`
 	MerchantOrderNo string `json:"merchant_order_no"`
 	Coin            string `json:"coin"`
-	CoinAmount      string `json:"coin_amount"`
+	Amount          string `json:"amount"`
 	Status          string `json:"status"`
 }
 
 type PayNotifyData struct {
 	NotifyBaseData
-	TransactionHash string `json:"transaction_hash"`
+	PayAt     string `json:"pay_at"`
+	BillDueTo string `json:"bill_due_to"`
 }
 
 type RefundNotifyData struct {
 	NotifyBaseData
-	RefundTransactionHash string `json:"refund_transaction_hash"`
+	RefundAmount  string `json:"refund_amount"`
+	RefundTime    string `json:"refund_time"`
+	RefundTxHash  string `json:"refund_tx_hash"`
+	RefundAddress string `json:"refund_address"`
 }
 
-type SettlementNotifyData struct {
+type SettleNotifyData struct {
 	NotifyBaseData
-	SettlementTransactionHash string `json:"settlement_transaction_hash"`
-}
-
-type ArbitrateNotifyData struct {
-	NotifyBaseData
-	ArbitrateTransactionHash string `json:"arbitrate_transaction_hash"`
-}
-
-type FreezeNotifyData struct {
-	NotifyBaseData
-	FreezeTransactionHash string `json:"freeze_transaction_hash"`
+	SettleAt     string `json:"settle_at"`
+	SettleAmount string `json:"settle_amount"`
+	SettleTxHash string `json:"settle_tx_hash"`
 }
