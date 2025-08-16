@@ -20,6 +20,7 @@ type Client struct {
 	ApiKey             string //
 	MerchantPrivateKey string // merchant private key
 	PlatformPublicKey  string // platform public key
+	BaseUrl            string
 }
 
 // NewClient Create a new API client
@@ -28,13 +29,14 @@ func NewClient(apiKey, merchantPrivateKey, platformPublicKey string) *Client {
 		ApiKey:             apiKey,
 		MerchantPrivateKey: merchantPrivateKey,
 		PlatformPublicKey:  platformPublicKey,
+		BaseUrl:            BaseUrl,
 	}
 }
 
 // DoRequest Execute the request and process the response
 func (c *Client) DoRequest(method, path string, body interface{}, response interface{}) error {
 	// Create request URL
-	url := fmt.Sprintf("%s%s", BaseUrl, path)
+	url := fmt.Sprintf("%s%s", c.BaseUrl, path)
 
 	// Serialized request body
 	var reqBody []byte
@@ -42,7 +44,7 @@ func (c *Client) DoRequest(method, path string, body interface{}, response inter
 		var err error
 		reqBody, err = json.Marshal(body)
 		if err != nil {
-			return fmt.Errorf("请求体序列化失败: %v", err)
+			return fmt.Errorf("marshal body err: %v", err)
 		}
 	}
 

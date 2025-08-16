@@ -1,7 +1,7 @@
 # Golang SDK for Benpay merchant
 
 # API Documentation
-- [Official documentation](https://docs.benpay.org/zh-Hans/BenPay/Doc/api_doc/)
+- [Official documentation](https://docs.benpay.org/BenPay/Doc/api_doc/)
 
 # Installation
 
@@ -30,7 +30,7 @@ import (
 func main() {
     cli := client.NewClient(ApiKey, MerchantPrivateKey, PlatformPublicKey)
     resp, err := cli.CreatePayment(&client.CreatePaymentRequest{
-        OutTradeNo:   time.Now().Format("20060102150405"),
+        MerchantOrderNo:   time.Now().Format("20060102150405"),
         Coin:         "BUSD",
         CoinAmount:   "0.05",
         MerchantNote: "merchant note",
