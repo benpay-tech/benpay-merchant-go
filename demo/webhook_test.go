@@ -11,10 +11,9 @@ import (
 	"github.com/benpay-tech/benpay-merchant-go/client"
 )
 
+var cli *client.Client
+
 func handler(w http.ResponseWriter, r *http.Request) {
-
-	cli := client.NewClient(ApiKey, MerchantPrivateKey, PlatformPublicKey)
-
 	// 读取请求体
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -54,12 +53,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func TestWebhook(t *testing.T) {
-
+	var err error
+	cli, err = genClient()
+	if err != nil {
+		log.Fatalf("gen client err: %v", err)
+	}
 	http.HandleFunc("/", handler)
 
 	port := ":8080"
 	fmt.Printf("Starting server on port %s\n", port)
-	if err := http.ListenAndServe(port, nil); err != nil {
+	if err = http.ListenAndServe(port, nil); err != nil {
 		log.Fatalf("Server failed: %s\n", err)
 	}
 

@@ -1,7 +1,7 @@
 # Golang SDK for Benpay merchant
 
 # API Documentation
-- [Official documentation](https://docs.benpay.org/zh-Hans/BenPay/Doc/api_doc/)
+- [Official documentation](https://docs.benpay.org/BenPay/Doc/api_doc/)
 
 # Installation
 
